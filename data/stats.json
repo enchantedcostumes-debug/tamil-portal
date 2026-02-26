@@ -1,0 +1,24 @@
+{
+  "total_words": 772,
+  "divine_words": 380,
+  "prime_words": 131,
+  "categories": {
+    "core": 772
+  },
+  "patterns": {
+    "pure_prime": 131,
+    "prime_times_2": 71,
+    "composite": 370,
+    "prime_power": 11,
+    "divine_7": 110,
+    "divine_13": 50,
+    "divine_19": 29
+  },
+  "gematria_min": 2,
+  "gematria_max": 1000,
+  "alphabet_size": 26,
+  "language": "Tamil",
+  "script": "Tamil Script",
+  "era": "500 BCE - present",
+  "family": "Dravidian"
+}

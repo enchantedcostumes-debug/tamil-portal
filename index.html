@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Tammy L Casey">
+    <meta name="copyright" content="Copyright 2026 Tammy L Casey. All rights reserved.">
+    <meta name="motto" content="Known by our fruits - not our roots">
+    <title>TAMIL - Alphabet, Gematria & Numerology | Ozark Oracle</title>
+    <meta name="description" content="One of the oldest living languages. Tamil Brahmi script dates to 500 BCE. Katapayadi system assigns numerical values. Complete lexicon with gematria values, prime factorization, and divine signatures.">
+    <link rel="stylesheet" href="quantum-theme.css">
+    <link rel="stylesheet" href="nav.css">
+    <link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" href="lang-portal.css">
+</head>
+<body>
+<script src="load_nav.js"></script>
+
+<main id="main-content" class="page-container">
+    <div class="page-header">
+        <h1 class="text-gold">TAMIL</h1>
+        <p class="text-silver">One of the oldest living languages. Tamil Brahmi script dates to 500 BCE. Katapayadi system assigns numerical values.</p>
+        <div class="script-info">
+            <span>Tamil Script</span> | <span>500 BCE - present</span> | <span>Dravidian family</span> | <span>Left-to-Right</span>
+        </div>
+    </div>
+
+    <div class="stats-grid" id="stats-bar">
+        <div class="stat-box">
+            <div class="stat-value text-gold" id="stat-words">--</div>
+            <div class="stat-label">Words</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value text-gold" id="stat-divine">--</div>
+            <div class="stat-label">Divine</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value text-gold" id="stat-prime">--</div>
+            <div class="stat-label">Prime</div>
+        </div>
+        <div class="stat-box">
+            <div class="stat-value text-gold" id="stat-alpha">--</div>
+            <div class="stat-label">Letters</div>
+        </div>
+    </div>
+
+    <div class="tab-bar">
+        <button class="tab-btn active" onclick="showTab('alphabet')">Alphabet</button>
+        <button class="tab-btn" onclick="showTab('lexicon')">Lexicon</button>
+        <button class="tab-btn" onclick="showTab('numerology')">Numerology</button>
+        <button class="tab-btn" onclick="showTab('sacred')">Sacred Numbers</button>
+    </div>
+
+    <!-- TAB: Alphabet -->
+    <div id="tab-alphabet" class="tab-content active">
+        <h2 class="text-gold">Alphabet & Letter Values</h2>
+        <div id="alphabet-grid" class="alpha-grid">
+            <p class="loading">Loading alphabet...</p>
+        </div>
+    </div>
+
+    <!-- TAB: Lexicon -->
+    <div id="tab-lexicon" class="tab-content">
+        <h2 class="text-gold">Complete Lexicon</h2>
+        <div class="search-container">
+            <input type="text" class="search-box" id="lex-search" placeholder="Search words, glosses, or gematria values..." oninput="debounceSearch()">
+        </div>
+        <div class="filter-row">
+            <select id="lex-filter" class="search-box" style="width:auto;" onchange="filterLexicon()">
+                <option value="">All Words</option>
+                <option value="divine">Divine Words Only</option>
+                <option value="prime">Prime Values Only</option>
+            </select>
+            <select id="lex-sort" class="search-box" style="width:auto;" onchange="filterLexicon()">
+                <option value="alpha">Sort: Alphabetical</option>
+                <option value="gematria">Sort: Gematria Value</option>
+                <option value="gematria-desc">Sort: Gematria (High-Low)</option>
+            </select>
+        </div>
+        <div id="lex-results">
+            <p class="loading">Loading lexicon...</p>
+        </div>
+        <div class="pagination" id="lex-pagination"></div>
+    </div>
+
+    <!-- TAB: Numerology -->
+    <div id="tab-numerology" class="tab-content">
+        <h2 class="text-gold">Gematria & Numerology</h2>
+        <p class="text-silver">Enter a word or number to analyze its numerological properties</p>
+        <div class="search-container">
+            <input type="text" class="search-box" id="num-input" placeholder="Enter a word or number..." onkeydown="if(event.key==='Enter')analyzeNumber()">
+            <button class="page-btn" onclick="analyzeNumber()" style="margin-top:0.5rem;">Analyze</button>
+        </div>
+        <div id="num-results"></div>
+        <div id="gematria-distribution" style="margin-top:2rem;">
+            <h3 class="text-gold">Gematria Value Distribution</h3>
+            <div id="dist-chart"></div>
+        </div>
+    </div>
+
+    <!-- TAB: Sacred -->
+    <div id="tab-sacred" class="tab-content">
+        <h2 class="text-gold">Sacred & Divine Numbers</h2>
+        <p class="text-silver">Words marked with divine signatures in the Tamil lexicon</p>
+        <div id="sacred-results">
+            <p class="loading">Loading sacred words...</p>
+        </div>
+    </div>
+
+    <div class="panel" style="margin-top:2rem;">
+        <h3 class="text-gold">About This Data</h3>
+        <p class="text-silver">This lexicon contains all indexed Tamil words with computed gematria values, prime factorization, and divine signature analysis. Each word has been analyzed for its numerical properties using the traditional letter-value system of this language.</p>
+        <p class="text-silver" style="margin-top:0.5rem;font-size:0.85rem;">Data: Rosetta Stone Project | Platform: Ozark Oracle | Copyright 2026 Tammy L Casey</p>
+    </div>
+</main>
+
+<script>
+const ALPHABET = [{"letter": "\u0b85", "name": "A", "translit": "a", "value": 1}, {"letter": "\u0b86", "name": "Aa", "translit": "aa", "value": 2}, {"letter": "\u0b87", "name": "I", "translit": "i", "value": 3}, {"letter": "\u0b88", "name": "Ii", "translit": "ii", "value": 4}, {"letter": "\u0b89", "name": "U", "translit": "u", "value": 5}, {"letter": "\u0b8a", "name": "Uu", "translit": "uu", "value": 6}, {"letter": "\u0b8e", "name": "E", "translit": "e", "value": 7}, {"letter": "\u0b8f", "name": "Ee", "translit": "ee", "value": 8}, {"letter": "\u0b90", "name": "Ai", "translit": "ai", "value": 9}, {"letter": "\u0b92", "name": "O", "translit": "o", "value": 10}, {"letter": "\u0b93", "name": "Oo", "translit": "oo", "value": 11}, {"letter": "\u0b94", "name": "Au", "translit": "au", "value": 12}, {"letter": "\u0b95", "name": "Ka", "translit": "ka", "value": 1}, {"letter": "\u0b99", "name": "Nga", "translit": "nga", "value": 2}, {"letter": "\u0b9a", "name": "Cha", "translit": "cha", "value": 3}, {"letter": "\u0b9e", "name": "Nya", "translit": "nya", "value": 4}, {"letter": "\u0b9f", "name": "Ta", "translit": "ta", "value": 5}, {"letter": "\u0ba3", "name": "Na", "translit": "na", "value": 6}, {"letter": "\u0ba4", "name": "Tha", "translit": "tha", "value": 7}, {"letter": "\u0ba8", "name": "Na", "translit": "na", "value": 8}, {"letter": "\u0baa", "name": "Pa", "translit": "pa", "value": 9}, {"letter": "\u0bae", "name": "Ma", "translit": "ma", "value": 10}, {"letter": "\u0baf", "name": "Ya", "translit": "ya", "value": 11}, {"letter": "\u0bb0", "name": "Ra", "translit": "ra", "value": 12}, {"letter": "\u0bb2", "name": "La", "translit": "la", "value": 13}, {"letter": "\u0bb5", "name": "Va", "translit": "va", "value": 14}];
+let lexData = null;
+let statsData = null;
+let searchTimeout = null;
+let lexPage = 1;
+const PER_PAGE = 50;
+
+function esc(s) {
+    if (!s) return '';
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function showTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    event.target.classList.add('active');
+    if (tabId === 'lexicon' && !lexData) loadLexicon();
+    if (tabId === 'sacred' && !lexData) loadLexicon().then(() => showSacred());
+    else if (tabId === 'sacred' && lexData) showSacred();
+    if (tabId === 'numerology' && !lexData) loadLexicon().then(() => showDistribution());
+    else if (tabId === 'numerology' && lexData) showDistribution();
+}
+
+// --- Stats ---
+async function loadStats() {
+    try {
+        const resp = await fetch('data/stats.json');
+        statsData = await resp.json();
+        document.getElementById('stat-words').textContent = (statsData.total_words || 0).toLocaleString();
+        document.getElementById('stat-divine').textContent = (statsData.divine_words || 0).toLocaleString();
+        document.getElementById('stat-prime').textContent = (statsData.prime_words || 0).toLocaleString();
+        document.getElementById('stat-alpha').textContent = (statsData.alphabet_size || ALPHABET.length || 0).toLocaleString();
+    } catch(e) {}
+}
+
+// --- Alphabet ---
+function renderAlphabet() {
+    const grid = document.getElementById('alphabet-grid');
+    if (ALPHABET.length === 0) {
+        grid.innerHTML = '<p class="text-silver">This writing system uses logograms/syllabograms rather than an alphabet. Browse the Lexicon tab to see all indexed signs and their numerical values.</p>';
+        return;
+    }
+    let html = '';
+    ALPHABET.forEach(a => {
+        html += '<div class="alpha-card">';
+        html += '<div class="alpha-letter">' + a.letter + '</div>';
+        html += '<div class="alpha-name">' + esc(a.name) + '</div>';
+        html += '<div class="alpha-translit">' + esc(a.translit) + '</div>';
+        html += '<div class="alpha-value">' + a.value + '</div>';
+        html += '</div>';
+    });
+    grid.innerHTML = html;
+}
+
+// --- Lexicon ---
+async function loadLexicon() {
+    const area = document.getElementById('lex-results');
+    if (area) area.innerHTML = '<p class="loading">Loading lexicon...</p>';
+    try {
+        const resp = await fetch('data/lexicon.json');
+        lexData = await resp.json();
+        filterLexicon();
+    } catch(e) {
+        if (area) area.innerHTML = '<p class="error-msg">Could not load lexicon data.</p>';
+    }
+}
+
+function debounceSearch() {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(function() { lexPage = 1; filterLexicon(); }, 300);
+}
+
+function filterLexicon() {
+    if (!lexData) return;
+    const area = document.getElementById('lex-results');
+    const q = (document.getElementById('lex-search').value || '').trim().toLowerCase();
+    const filter = document.getElementById('lex-filter').value;
+    const sort = document.getElementById('lex-sort').value;
+
+    let filtered = lexData;
+    if (q) {
+        filtered = filtered.filter(r =>
+            (r.word && r.word.toLowerCase().includes(q)) ||
+            (r.transliteration && r.transliteration.toLowerCase().includes(q)) ||
+            (r.gloss && r.gloss.toLowerCase().includes(q)) ||
+            (r.gematria && r.gematria === q)
+        );
+    }
+    if (filter === 'divine') filtered = filtered.filter(r => r.is_divine && r.is_divine.toLowerCase() === 'true');
+    if (filter === 'prime') filtered = filtered.filter(r => r.is_prime && r.is_prime.toLowerCase() === 'true');
+
+    if (sort === 'gematria') filtered = [...filtered].sort((a,b) => (parseInt(a.gematria)||0) - (parseInt(b.gematria)||0));
+    else if (sort === 'gematria-desc') filtered = [...filtered].sort((a,b) => (parseInt(b.gematria)||0) - (parseInt(a.gematria)||0));
+    else filtered = [...filtered].sort((a,b) => (a.word||'').localeCompare(b.word||''));
+
+    const total = filtered.length;
+    const totalPages = Math.ceil(total / PER_PAGE);
+    if (lexPage > totalPages && totalPages > 0) lexPage = totalPages;
+    const start = (lexPage - 1) * PER_PAGE;
+    const page = filtered.slice(start, start + PER_PAGE);
+
+    if (page.length === 0) {
+        area.innerHTML = '<p class="loading">No words match</p>';
+        document.getElementById('lex-pagination').innerHTML = '';
+        return;
+    }
+
+    let html = '<div class="lex-table">';
+    html += '<div class="lex-row lex-header"><span>Word</span><span>Gloss</span><span>Gematria</span><span>Factors</span><span>Type</span></div>';
+    page.forEach(r => {
+        let cls = '';
+        if (r.is_divine && r.is_divine.toLowerCase() === 'true') cls = ' lex-divine';
+        if (r.is_prime && r.is_prime.toLowerCase() === 'true') cls += ' lex-prime';
+        html += '<div class="lex-row' + cls + '" onclick="showWordDetail(this)" data-word=\''+encodeURIComponent(JSON.stringify(r))+'\''>';
+        html += '<span class="lex-word">' + esc(r.word) + '</span>';
+        html += '<span class="lex-gloss">' + esc(r.gloss || '') + '</span>';
+        html += '<span class="lex-gematria text-gold">' + esc(r.gematria || '-') + '</span>';
+        html += '<span class="lex-factors">' + esc(r.prime_factors || '-') + '</span>';
+        html += '<span class="lex-type">' + (r.is_divine === 'True' ? '[DIVINE]' : '') + (r.is_prime === 'True' ? ' [PRIME]' : '') + '</span>';
+        html += '</div>';
+    });
+    html += '</div>';
+    area.innerHTML = html;
+
+    let pHtml = '';
+    if (totalPages > 1) {
+        if (lexPage > 1) pHtml += '<button class="page-btn" onclick="lexPage--;filterLexicon();">&lt;</button>';
+        pHtml += '<span class="page-btn active">' + lexPage + '/' + totalPages + ' (' + total.toLocaleString() + ')</span>';
+        if (lexPage < totalPages) pHtml += '<button class="page-btn" onclick="lexPage++;filterLexicon();">&gt;</button>';
+    }
+    document.getElementById('lex-pagination').innerHTML = pHtml;
+}
+
+function showWordDetail(el) {
+    const r = JSON.parse(decodeURIComponent(el.dataset.word));
+    const area = document.getElementById('lex-results');
+    let html = '<div class="word-detail">';
+    html += '<h2>' + esc(r.word) + '</h2>';
+    if (r.transliteration && r.transliteration !== r.word) html += '<p class="text-silver">Transliteration: ' + esc(r.transliteration) + '</p>';
+    html += '<div class="gloss">' + esc(r.gloss || 'unknown') + '</div>';
+    html += '<div class="stats-grid" style="margin:1rem 0;">';
+    html += '<div class="stat-box"><div class="stat-value text-gold">' + esc(r.gematria || '-') + '</div><div class="stat-label">Gematria</div></div>';
+    html += '<div class="stat-box"><div class="stat-value text-gold">' + esc(r.prime_factors || '-') + '</div><div class="stat-label">Prime Factors</div></div>';
+    html += '<div class="stat-box"><div class="stat-value text-gold">' + esc(r.pattern_type || '-') + '</div><div class="stat-label">Pattern</div></div>';
+    html += '</div>';
+    if (r.is_divine === 'True') html += '<p class="divine-tag">[DIVINE] ' + esc(r.divine_signature || '') + '</p>';
+    if (r.strongs_number) html += '<p class="text-silver">Strong's: ' + esc(r.strongs_number) + '</p>';
+    if (r.context) html += '<p class="text-silver">Context: ' + esc(r.context) + '</p>';
+    if (r.notes) html += '<p class="text-silver" style="font-size:0.85rem;">' + esc(r.notes) + '</p>';
+
+    // Find words with same gematria value
+    if (r.gematria && lexData) {
+        const matches = lexData.filter(w => w.gematria === r.gematria && w.word !== r.word).slice(0, 10);
+        if (matches.length > 0) {
+            html += '<h3 class="text-gold" style="margin-top:1rem;">Words with Same Value (' + esc(r.gematria) + ')</h3>';
+            html += '<div class="match-list">';
+            matches.forEach(m => {
+                html += '<span class="match-tag">' + esc(m.word) + ' - ' + esc(m.gloss || '') + '</span>';
+            });
+            html += '</div>';
+        }
+    }
+    html += '</div>';
+    html += '<button class="page-btn" onclick="filterLexicon()" style="margin-top:0.5rem;">&lt; Back to lexicon</button>';
+    area.innerHTML = html;
+}
+
+// --- Numerology Analysis ---
+function analyzeNumber() {
+    const input = document.getElementById('num-input').value.trim();
+    const area = document.getElementById('num-results');
+    if (!input) return;
+    if (!lexData) { loadLexicon().then(() => analyzeNumber()); return; }
+
+    // If input is a number, find words with that value
+    if (/^\d+$/.test(input)) {
+        const val = input;
+        const matches = lexData.filter(r => r.gematria === val);
+        let html = '<div class="word-detail">';
+        html += '<h2 class="text-gold">Value: ' + esc(val) + '</h2>';
+
+        // Check primality
+        const n = parseInt(val);
+        let isPrime = n > 1;
+        for (let i = 2; i * i <= n; i++) { if (n % i === 0) { isPrime = false; break; } }
+        html += '<p class="text-silver">' + n + ' is ' + (isPrime ? 'PRIME' : 'composite') + '</p>';
+
+        if (matches.length > 0) {
+            html += '<h3 class="text-gold">' + matches.length + ' words with this value:</h3>';
+            matches.forEach(m => {
+                html += '<div class="result-item">';
+                html += '<span class="result-word">' + esc(m.word) + '</span>';
+                html += '<span class="result-gloss"> - ' + esc(m.gloss || '') + '</span>';
+                if (m.is_divine === 'True') html += ' <span class="divine-tag">[DIVINE]</span>';
+                html += '</div>';
+            });
+        } else {
+            html += '<p class="text-silver">No words in this lexicon have gematria value ' + esc(val) + '</p>';
+        }
+        html += '</div>';
+        area.innerHTML = html;
+    } else {
+        // It's a word - find it and show analysis
+        const word = input.toLowerCase();
+        const match = lexData.find(r =>
+            (r.word && r.word.toLowerCase() === word) ||
+            (r.transliteration && r.transliteration.toLowerCase() === word) ||
+            (r.gloss && r.gloss.toLowerCase() === word)
+        );
+        if (match) {
+            let html = '<div class="word-detail">';
+            html += '<h2>' + esc(match.word) + '</h2>';
+            html += '<div class="gloss">' + esc(match.gloss || '') + '</div>';
+            html += '<div class="stats-grid" style="margin:1rem 0;">';
+            html += '<div class="stat-box"><div class="stat-value text-gold">' + esc(match.gematria || '-') + '</div><div class="stat-label">Gematria</div></div>';
+            html += '<div class="stat-box"><div class="stat-value text-gold">' + esc(match.prime_factors || '-') + '</div><div class="stat-label">Factors</div></div>';
+            html += '<div class="stat-box"><div class="stat-value text-gold">' + esc(match.pattern_type || '-') + '</div><div class="stat-label">Pattern</div></div>';
+            html += '</div>';
+            if (match.is_divine === 'True') html += '<p class="divine-tag">[DIVINE] ' + esc(match.divine_signature || '') + '</p>';
+            html += '</div>';
+            area.innerHTML = html;
+        } else {
+            area.innerHTML = '<p class="loading">Word "' + esc(input) + '" not found in lexicon. Try the Lexicon tab to search.</p>';
+        }
+    }
+}
+
+function showDistribution() {
+    if (!lexData) return;
+    const chart = document.getElementById('dist-chart');
+    // Count gematria value ranges
+    const ranges = {};
+    lexData.forEach(r => {
+        const v = parseInt(r.gematria) || 0;
+        let bucket;
+        if (v <= 10) bucket = '1-10';
+        else if (v <= 50) bucket = '11-50';
+        else if (v <= 100) bucket = '51-100';
+        else if (v <= 500) bucket = '101-500';
+        else if (v <= 1000) bucket = '501-1000';
+        else bucket = '1000+';
+        ranges[bucket] = (ranges[bucket] || 0) + 1;
+    });
+    const order = ['1-10', '11-50', '51-100', '101-500', '501-1000', '1000+'];
+    const maxCount = Math.max(...Object.values(ranges), 1);
+    let html = '';
+    order.forEach(bucket => {
+        const c = ranges[bucket] || 0;
+        const pct = Math.round((c / maxCount) * 100);
+        html += '<div class="period-bar"><span class="period-label">' + bucket + '</span>';
+        html += '<div class="period-fill" style="width:' + pct + '%;"></div>';
+        html += '<span class="period-count">' + c.toLocaleString() + '</span></div>';
+    });
+    chart.innerHTML = html;
+}
+
+// --- Sacred Numbers ---
+function showSacred() {
+    if (!lexData) return;
+    const area = document.getElementById('sacred-results');
+    const divine = lexData.filter(r => r.is_divine && r.is_divine.toLowerCase() === 'true');
+    if (divine.length === 0) {
+        area.innerHTML = '<p class="loading">No divine signatures found in this lexicon.</p>';
+        return;
+    }
+    // Group by divine signature
+    const groups = {};
+    divine.forEach(r => {
+        const sig = r.divine_signature || 'Unknown';
+        if (!groups[sig]) groups[sig] = [];
+        groups[sig].push(r);
+    });
+
+    let html = '';
+    Object.entries(groups).sort((a,b) => b[1].length - a[1].length).forEach(([sig, words]) => {
+        html += '<div class="sacred-group">';
+        html += '<h3 class="text-gold">' + esc(sig) + ' <span class="text-silver">(' + words.length + ' words)</span></h3>';
+        html += '<div class="sacred-words">';
+        words.slice(0, 20).forEach(w => {
+            html += '<div class="sacred-word">';
+            html += '<span class="result-word">' + esc(w.word) + '</span>';
+            html += '<span class="result-gloss"> - ' + esc(w.gloss || '') + '</span>';
+            html += '<span class="lex-gematria text-gold"> [' + esc(w.gematria || '') + ']</span>';
+            html += '</div>';
+        });
+        if (words.length > 20) html += '<p class="text-silver">... and ' + (words.length - 20) + ' more</p>';
+        html += '</div></div>';
+    });
+    area.innerHTML = html;
+}
+
+// --- Init ---
+loadStats();
+renderAlphabet();
+</script>
+</body>
+</html>

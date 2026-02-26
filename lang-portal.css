@@ -1,0 +1,34 @@
+/* Language Portal - Alphabet & Gematria Styles */
+.script-info { color: #999; font-size: 0.9rem; margin-top: 0.5rem; }
+.alpha-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem; margin: 1rem 0; }
+.alpha-card { background: rgba(0,0,0,0.5); border: 1px solid rgba(192,192,192,0.3); border-radius: 8px; padding: 1rem; text-align: center; transition: border-color 0.2s; }
+.alpha-card:hover { border-color: #D4AF37; }
+.alpha-letter { font-size: 2.5rem; color: #D4AF37; line-height: 1.2; }
+.alpha-name { color: #C0C0C0; font-size: 0.9rem; margin-top: 0.3rem; }
+.alpha-translit { color: #888; font-size: 0.8rem; font-style: italic; }
+.alpha-value { color: #D4AF37; font-size: 1.2rem; font-weight: bold; margin-top: 0.3rem; font-family: monospace; }
+.lex-table { width: 100%; }
+.lex-row { display: grid; grid-template-columns: 2fr 3fr 1fr 2fr 1.5fr; gap: 0.5rem; padding: 0.6rem 0.8rem; border-bottom: 1px solid rgba(192,192,192,0.1); align-items: center; cursor: pointer; transition: background 0.15s; }
+.lex-row:hover:not(.lex-header) { background: rgba(212,175,55,0.1); }
+.lex-header { font-weight: bold; color: #D4AF37; border-bottom: 2px solid rgba(212,175,55,0.3); cursor: default; }
+.lex-word { font-size: 1.1rem; color: #fff; }
+.lex-gloss { color: #C0C0C0; font-size: 0.9rem; }
+.lex-gematria { font-family: monospace; font-weight: bold; }
+.lex-factors { color: #999; font-size: 0.85rem; font-family: monospace; }
+.lex-type { font-size: 0.75rem; color: #D4AF37; }
+.lex-divine { border-left: 3px solid #D4AF37; }
+.lex-prime { border-right: 3px solid #C0C0C0; }
+.filter-row { display: flex; gap: 1rem; margin: 0.5rem 0 1rem; flex-wrap: wrap; }
+.sacred-group { margin-bottom: 1.5rem; padding: 1rem; background: rgba(0,0,0,0.3); border: 1px solid rgba(192,192,192,0.2); border-radius: 8px; }
+.sacred-words { margin-top: 0.5rem; }
+.sacred-word { padding: 0.3rem 0; border-bottom: 1px solid rgba(192,192,192,0.05); }
+.divine-tag { display: inline-block; background: rgba(212,175,55,0.2); color: #D4AF37; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.85rem; font-weight: bold; }
+.match-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+.match-tag { background: rgba(192,192,192,0.1); border: 1px solid rgba(192,192,192,0.3); padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.85rem; color: #C0C0C0; }
+@media (max-width: 768px) {
+    .alpha-grid { grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 0.5rem; }
+    .alpha-letter { font-size: 2rem; }
+    .lex-row { grid-template-columns: 1fr 2fr 1fr; }
+    .lex-factors, .lex-type { display: none; }
+    .filter-row { flex-direction: column; }
+}
